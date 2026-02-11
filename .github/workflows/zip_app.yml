@@ -1,0 +1,21 @@
+name: zip the chrome extension
+
+on:
+  workflow_dispatch:
+
+jobs:
+  zip_app:
+    name: zip_app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Zip the app
+        run: zip -rv rednote_helper_app.zip ./
+
+      - name: Archive zip_app production
+        uses: actions/upload-artifact@v6
+        with:
+          name: zip_app production
+          path: ./*.zip
+          if-no-files-found: error
