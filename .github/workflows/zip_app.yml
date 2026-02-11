@@ -16,6 +16,6 @@ jobs:
       - name: Archive zip_app production
         uses: actions/upload-artifact@v6
         with:
-          name: zip_app production
+          name: rednote_helper_app
           path: ./*.zip
           if-no-files-found: error
