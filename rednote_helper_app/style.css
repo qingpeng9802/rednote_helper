@@ -1,0 +1,10 @@
+.show-all {
+    display: inline-block;
+    margin-left: 14px;
+    height: 32px;
+    line-height: 32px;
+    color: var(--color-link);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 12px;
+}

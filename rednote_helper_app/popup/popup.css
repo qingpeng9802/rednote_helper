@@ -1,0 +1,283 @@
+@layer reset {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    button,
+    input,
+    progress,
+    select,
+    textarea {
+        font: inherit;
+    }
+}
+
+:lang(zh) {
+    font-family: PingFang SC, Microsoft YaHei, Arial, sans-serif;
+}
+
+:lang(en) {
+    font-family: Roboto, Arial, sans-serif;
+}
+
+body {
+    font-size: 14px;
+    font-weight: 400;
+    width: 286px;
+    margin: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+
+    body,
+    #regex,
+    #buttonText,
+    #clickTimes {
+        background-color: #1f1f1f;
+        color: #eef0ff;
+    }
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.lang-en {
+    padding-top: 1px;
+}
+
+.titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: inherit;
+    margin: 10px 0px;
+}
+
+.square-container {
+    display: flex;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    /* Older clip syntax */
+    clip: rect(0, 0, 0, 0);
+    /* Modern clip-path syntax */
+    clip-path: inset(50%);
+    overflow: hidden;
+    /* Prevents text from wrapping and taking up space */
+    white-space: nowrap;
+}
+
+.visually-hidden:focus-visible+label {
+    outline: 1px solid;
+    outline-offset: 2px;
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+:root {
+    --hover-background: #e0e0e0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* A slightly lighter shade of the background */
+        --hover-background: #4f4f4f;
+    }
+}
+
+.square:hover {
+    background-color: var(--hover-background);
+}
+
+.square-cn {
+    border-radius: 25% 0 0 25%;
+}
+
+.square-en {
+    border-radius: 0 25% 25% 0;
+}
+
+#selectENtext {
+    padding-top: 2px;
+}
+
+/* Style the div when its corresponding radio input is checked */
+.fake-radio:checked+.square {
+    background-color: #0063d1;
+}
+
+@media (prefers-color-scheme: light) {
+    .fake-radio:checked+.square {
+        color: #eef0ff;
+    }
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-left: 4px;
+}
+
+.sub-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-left: 34px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin: 4px 0px;
+}
+
+.checkbox input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.checkbox label {
+    margin-left: 14px;
+    cursor: pointer;
+}
+
+.show-all-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-left: 33px;
+    margin-right: 30px;
+}
+
+.set-button-text,
+.set-click-times {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+html[lang='en'] .show-all-group {
+    margin-right: 9px;
+}
+
+#buttonText,
+#clickTimes {
+    border-radius: 15px;
+    border: 1px solid #797979;
+
+    padding: 9px 13px;
+    line-height: 1.3;
+
+    margin-left: 9px;
+}
+
+#buttonText {
+    width: 150px;
+}
+
+#clickTimes {
+    width: 68px;
+}
+
+.regex-group {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-left: 33px;
+    margin-right: 9px;
+}
+
+.code-font {
+    font-family: Consolas, Lucida Console, monospace;
+}
+
+.code-inline {
+    display: inline-block;
+}
+
+#regex {
+    font-weight: bolder;
+    font-size: 15px;
+
+    border-radius: 15px;
+    border: 1px solid #797979;
+
+    padding: 9px 13px;
+    line-height: 1.3;
+    resize: vertical;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 14px;
+
+    border: none;
+    border-radius: 14px;
+
+    background-color: #0370c4;
+    color: #eef0ff;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: #0487ec
+}
+
+#submit:active {
+    background-color: #049eff
+}
+
+.status-box {
+    display: flex;
+    align-items: center;
+}
+
+.status-symbol {
+    margin-right: 2px;
+}
+
+.hidden {
+    display: none;
+}

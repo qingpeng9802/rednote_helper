@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "checkJs": true,
+        "allowJs": true,
+        "target": "es2022",
+        "module": "none",
+
+        "sourceMap": true,
+        
+        "strict": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "newLine": "lf",
+
+        "typeRoots": [
+          "./@types",
+        ]
+    },
+    "include": [ "**/*.js" ], 
+}

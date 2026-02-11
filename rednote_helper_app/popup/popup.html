@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="小红书评论助手扩展程序设置 Settings for the extension rednote Comment Assistant">
+  <title>扩展程序设置 Settings for the extension</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+  <main class="main-container">
+
+    <div class="titlebar">
+
+      <h1 class="title">
+        <span class="lang-cn">设置</span>
+        <span class="lang-en hidden">Settings</span>
+      </h1>
+
+      <div id="selectLang" class="square-container" role="radiogroup" aria-label="选择语言 Select language">
+        <input type="radio" id="selectCN" name="language" class="fake-radio visually-hidden" value="cn" checked>
+        <label for="selectCN" class="square square-cn" lang="zh-CN">
+          <div>
+            中
+          </div>
+        </label>
+
+        <input type="radio" id="selectEN" name="language" class="fake-radio visually-hidden" value="en">
+        <label for="selectEN" class="square square-en" lang="en">
+          <div id="selectENtext">
+            EN
+          </div>
+        </label>
+      </div>
+
+    </div>
+
+    <div class="selection">
+      <div class="checkbox">
+        <input id="hideAt" type="checkbox" checked />
+        <label for="hideAt">
+          <span class="lang-cn">隐藏 @ 他人的用户评论</span>
+          <span class="lang-en hidden">Hide comments that @ other users</span>
+        </label>
+      </div>
+
+      <div class="sub-group">
+        <div class="checkbox">
+          <input id="hideNoTextOnly" type="checkbox" />
+          <label for="hideNoTextOnly">
+            <span class="lang-cn">只隐藏无文字内容评论</span>
+            <span class="lang-en hidden">Only hide comments with no text</span>
+          </label>
+        </div>
+
+        <div class="checkbox">
+          <input id="hideAtReply" type="checkbox" checked />
+          <label for="hideAtReply">
+            <span class="lang-cn">隐藏被 @ 人的回复</span>
+            <span class="lang-en hidden">Hide replies to @-mentions</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="selection">
+      <div class="checkbox">
+        <input id="showAll" type="checkbox" checked />
+        <label for="showAll">
+          <span class="lang-cn">添加展开所有回复按钮</span>
+          <span class="lang-en hidden">Add a button to expand all replies</span>
+        </label>
+      </div>
+
+      <div class="show-all-group">
+        <div class="set-button-text">
+          <label for="buttonText">
+            <span class="lang-cn">按钮文本</span>
+            <span class="lang-en hidden">Button Text</span>
+          </label>
+          <input id="buttonText" type="text" value="查看所有" />
+        </div>
+
+        <div class="set-click-times">
+          <label for="clickTimes">
+            <span class="lang-cn">展开次数 (1-20)</span>
+            <span class="lang-en hidden">Comment Expansions<br />(1-20)</span>
+          </label>
+          <input id="clickTimes" type="number" value="10" min="1" max="20" />
+        </div>
+      </div>
+    </div>
+
+    <div class="selection">
+      <div class="checkbox">
+        <input id="enableRegex" type="checkbox" />
+        <label for="enableRegex">
+          <span class="lang-cn">开启正则表达式过滤器（滤除）</span>
+          <span class="lang-en hidden">Enable regex filter (filter out)</span>
+        </label>
+      </div>
+
+      <div class="regex-group">
+        <label for="regex">
+          <span class="lang-cn">JS字面量正则表达式，例如 <code class="code-inline code-font">/鱼|🐟/i</code></span>
+          <span class="lang-en hidden">Regex in JS literal notation e.g., <code
+              class="code-inline code-font">/fish|🐟/i</code></span>
+        </label>
+
+        <textarea wrap="soft" id="regex" class="code-font" rows="1">//</textarea>
+
+        <div class="submit-container">
+          <button id="submit">
+            <span class="lang-cn">提交表达式</span>
+            <span class="lang-en hidden">Submit regex</span>
+          </button>
+
+          <div id="successful" class="status-box hidden" role="status">
+            <span class="status-symbol" aria-hidden="true">✔️</span>
+            <span class="lang-cn">提交成功</span>
+            <span class="lang-en hidden">Success</span>
+          </div>
+          <div id="failed" class="status-box hidden" role="status">
+            <span class="status-symbol" aria-hidden="true">❌</span>
+            <span class="lang-cn">提交失败</span>
+            <span class="lang-en hidden">Failed</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+</body>
+<script src="popup.js"></script>
+
+</html>

@@ -1,0 +1,9 @@
+{
+    "js/ts.implicitProjectConfig.checkJs": true,
+    
+    "javascript.preferences.importModuleSpecifierEnding": "js",
+
+    "javascript.suggest.completeJSDocs": true,
+    "javascript.suggest.completeFunctionCalls": true,
+    "javascript.suggest.autoImports": true
+}

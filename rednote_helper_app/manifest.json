@@ -1,0 +1,30 @@
+{
+    "manifest_version": 3,
+    "name": "小红书评论助手 rednote Comment Assistant",
+    "description": "帮助你更高效地阅读并节省时间 Helping you read more efficiently and save time",
+    "version": "0.0.5",
+    "icons": {
+        "128": "img/icon128.png"
+    },
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "128": "img/icon128.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [ "https://www.xiaohongshu.com/*" ],
+            "css": [
+                "style.css"
+            ],
+            "js": [ "settings.js", "feature_functions.js", "content_scripts.js" ]
+        }
+    ],
+    "permissions": [
+        "storage"
+    ]
+}
