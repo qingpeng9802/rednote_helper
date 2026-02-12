@@ -22,5 +22,6 @@
           "./@types",
         ]
     },
-    "include": [ "**/*.js" ], 
+    "include": [ "**/*.js" ],
+    "exclude": [ "node_modules", "dist" ],
 }
