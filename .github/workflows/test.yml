@@ -1,0 +1,32 @@
+name: test
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+
+  workflow_dispatch:
+
+  workflow_call:
+
+jobs:
+  tscheck:
+    name: tscheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: install ts
+        run: npm install -g typescript
+      - name: tscc
+        run: tsc -p jsconfig.json --noEmit
+      - name: tsccd
+        run: |
+          tsc -p jsconfig.json \
+          --declaration --declarationMap \
+          --emitDeclarationOnly --outDir ./dist/types
