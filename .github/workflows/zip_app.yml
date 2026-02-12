@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Zip the app
-        run: zip -rv rednote_helper_app.zip ./rednote_helper_app/
+        run: zip -rv9 rednote_helper_app.zip ./rednote_helper_app/
 
       - name: Archive zip_app production
         uses: actions/upload-artifact@v6
