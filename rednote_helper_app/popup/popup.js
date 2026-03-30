@@ -22,11 +22,11 @@ const selectLang = /** @type {HTMLElement} */ (document.querySelector('#selectLa
 const langcns = document.querySelectorAll('.lang-cn');
 const langens = document.querySelectorAll('.lang-en');
 
-/** 
+/**
   * @type {Readonly<Map<string, Readonly<
-  *   {access: 'checked', ele: HTMLInputElement} | 
+  *   {access: 'checked', ele: HTMLInputElement} |
   *   {access: 'value', ele: HTMLInputElement | HTMLTextAreaElement}>
-  * >>} 
+  * >>}
   */
 const SETTINGS = new Map([
   ['selectCN', { access: 'checked', ele: selectCN }], // only in popup
@@ -130,7 +130,7 @@ function switchLang() {
 
 function init() {
   // store or recover values from local storage
-  chrome.storage.local.get([...SETTINGS.keys()]).then((result) => {
+  chrome.storage.local.get([...SETTINGS.keys()]).then(async (result) => {
     /** @type {Record<string, boolean | string>} */
     const needToSet = {};
 
@@ -145,38 +145,38 @@ function init() {
     }
 
     if (Object.keys(needToSet).length > 0) {
-      chrome.storage.local.set(needToSet);
+      await chrome.storage.local.set(needToSet);
     }
 
     // optimized performance, no ops on default
-    if (!accessBy('hideAt')) {
+    if (accessBy('hideAt') === false) {
       disableSecondary();
     }
-    if (!accessBy('selectCN')) {
+    if (accessBy('selectCN') === false) {
       switchLang();
     }
-  });
+  }, () => { });
 
   // storage listners
   for (const [eleId, accessInfo] of SETTINGS.entries()) {
     if (!['regex', 'selectCN', 'selectEN'].includes(eleId)) {
-      accessInfo?.ele.addEventListener('change', () => {
-        chrome.storage.local.set({ [eleId]: accessBy(eleId) });
+      accessInfo?.ele.addEventListener('change', async () => {
+        await chrome.storage.local.set({ [eleId]: accessBy(eleId) });
       });
     }
   }
 
-  submitButton.addEventListener('click', () => {
+  submitButton.addEventListener('click', async () => {
     if (submitRegex()) {
-      chrome.storage.local.set({ regex: regexInput.value });
+      await chrome.storage.local.set({ regex: regexInput.value });
     }
   });
 
-  selectLang.addEventListener('change', (event) => {
+  selectLang.addEventListener('change', async (event) => {
     if (/** @type {HTMLInputElement} */ (event.target).name === 'language') {
-      chrome.storage.local.set({
-        'selectCN': selectCN.checked,
-        'selectEN': selectEN.checked
+      await chrome.storage.local.set({
+        selectCN: selectCN.checked,
+        selectEN: selectEN.checked
       });
     }
   });

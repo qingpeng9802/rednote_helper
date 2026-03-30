@@ -14,7 +14,7 @@ async function sleep(ms) {
  */
 function timeout(ms) {
   return new Promise((_, reject) =>
-    setTimeout(() => reject('Operation timed out'), ms)
+    setTimeout(() => reject(new Error('Operation timed out')), ms)
   );
 }
 
@@ -81,8 +81,8 @@ function getShowAllButton(parent, buttonText = '查看所有', clickTimes = 10) 
   oneClickNode.classList.add('show-all');
 
   oneClickNode.addEventListener('click',
-    async () => await runFuncWithTimeout(
-      async () => await showAllSubs(parent, clickTimes), 10000)
+    () => runFuncWithTimeout(
+      () => showAllSubs(parent, clickTimes), 10000)
   );
   return oneClickNode;
 }
@@ -192,7 +192,7 @@ function isEmptyTextForNode(node) {
 /**
  * @param {HTMLElement} rangeNode
  * @param {boolean} hideNoTextOnly
- * @param {Map<HTMLElement, Map<string, string>> | undefined} atRecord 
+ * @param {Map<HTMLElement, Map<string, string>> | undefined} atRecord
  * {main-comment-whole-container : {to-user-ame: from-user-name}}
  */
 function deleteAtUserComment(rangeNode, hideNoTextOnly, atRecord) {
@@ -223,12 +223,12 @@ function deleteAtUserComment(rangeNode, hideNoTextOnly, atRecord) {
       const parentContainer =
         /** @type {HTMLElement} */ (atUserCommentCont.parentElement);
       if (!atRecord.has(parentContainer)) {
-        atRecord.set(parentContainer, new Map())
+        atRecord.set(parentContainer, new Map());
       }
 
       const possibleAtUserMap = atRecord.get(parentContainer);
-      if (possibleAtUserMap && !possibleAtUserMap.has(toUserName)) {
-        possibleAtUserMap.set(toUserName, fromUserName)
+      if (possibleAtUserMap !== undefined && !possibleAtUserMap.has(toUserName)) {
+        possibleAtUserMap.set(toUserName, fromUserName);
       }
     }
 
@@ -256,7 +256,7 @@ function deleteAtUserReply(checkAtReplyCont) {
         // reUser is after the record node, not always
         //(reUserCont.compareDocumentPosition(possibleMatchRecord.locationCont) &
         //  Node.DOCUMENT_POSITION_PRECEDING)
-      )
+      );
       if (isFollowingReply) {
         //console.log('[username-re] ', reUser.textContent);
         reUserCont.style.display = 'none';

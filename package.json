@@ -1,0 +1,31 @@
+{
+  "name": "rednote_helper",
+  "version": "0.0.5",
+  "description": "小红书评论助手 rednote Comment Assistant",
+  "homepage": "https://github.com/qingpeng9802/rednote_helper#readme",
+  "bugs": {
+    "url": "https://github.com/qingpeng9802/rednote_helper/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qingpeng9802/rednote_helper.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Qingpeng Li",
+  "type": "commonjs",
+  "main": "rednote_helper_app/popup/popup.js",
+  "scripts": {
+    "lint": "eslint rednote_helper_app",
+    "tscc": "tsc -p jsconfig.json --noEmit",
+    "tsccd": "tsc -p jsconfig.json --declaration --declarationMap --emitDeclarationOnly --outDir ./dist/types",
+    "zipapp": "zip -rv9 rednote_helper_app.zip ./rednote_helper_app/"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "eslint": "^10.1.0",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.0"
+  }
+}

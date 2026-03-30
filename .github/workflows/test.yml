@@ -14,19 +14,18 @@ on:
 
 jobs:
   tscheck:
-    name: tscheck
+    name: lint and tscheck
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-      - name: install ts
-        run: npm install -g typescript
+      - name: npm install
+        run: npm install
+      - name: lint
+        run: npm run lint
       - name: tscc
-        run: tsc -p jsconfig.json --noEmit
+        run: npm run tscc
       - name: tsccd
-        run: |
-          tsc -p jsconfig.json \
-          --declaration --declarationMap \
-          --emitDeclarationOnly --outDir ./dist/types
+        run: npm run tsccd

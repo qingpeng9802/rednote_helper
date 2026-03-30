@@ -30,7 +30,7 @@ function regexStrToRegExp(regexStr) {
  * @returns {number}
  */
 function clickTimesToNum(clickTimesStr, prevValid) {
-  const num = parseInt(clickTimesStr, 10);
+  const num = Number.parseInt(clickTimesStr, 10);
   if (Number.isNaN(num)) {
     return prevValid;
   }
@@ -50,7 +50,7 @@ const DEFAULT_SETTINGS = /** @type {const} */({
 /** @typedef {typeof DEFAULT_SETTINGS} DefaultSettingsType*/
 /** @typedef {keyof DEFAULT_SETTINGS} DefaultSettingsKeys*/
 
-/** 
+/**
  * @typedef {DefaultSettingsType & {
  *   regexObj: RegExp | undefined,
  *   clickTimesNum: number
@@ -78,7 +78,7 @@ async function initSettings(onChangedFunc) {
     if (result[key] === undefined) {
       settingsToSet[key] = DEFAULT_SETTINGS[key];
     }
-  };
+  }
 
   if (Object.keys(settingsToSet).length > 0) {
     await chrome.storage.local.set(settingsToSet);
@@ -106,7 +106,7 @@ async function initSettings(onChangedFunc) {
       }
       if (Object.hasOwn(changes, 'clickTimes')) {
         cachedSettings.clickTimesNum =
-          clickTimesToNum(cachedSettings.clickTimes, cachedSettings.clickTimesNum);;
+          clickTimesToNum(cachedSettings.clickTimes, cachedSettings.clickTimesNum);
       }
 
       await onChangedFunc();

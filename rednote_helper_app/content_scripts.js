@@ -83,11 +83,11 @@ function ops(rangeNode) {
   const isDebug = false;
 
   if (!isDebug) {
-    return rawOps(rangeNode);
+    rawOps(rangeNode);
   }
 
   try {
-    return rawOps(rangeNode);
+    rawOps(rangeNode);
   } catch (e) {
     console.log(/** @type {Error} */(e).message);
     console.log(/** @type {Error} */(e).stack);
@@ -118,7 +118,7 @@ function injectedScript() {
 
     observerPC.observe(parentCommentContainer, { childList: true });
   }
-};
+}
 
 function recoverAll() {
   const eles = document.querySelectorAll(
@@ -219,7 +219,7 @@ function addMODetectingFeedAndNote() {
     return;
   }
 
-  const debounced = asyncDebounce(async () => await injectWhenReady(), 250);
+  const debounced = asyncDebounce(() => injectWhenReady(), 250);
   const observer = new MutationObserver(debounced);
   observer.observe(titleNode, { childList: true });
 }
