@@ -12,7 +12,7 @@
     ↪️ **隐藏被 @ 人的回复**
     - 隐藏之前@到的人的进一步回复，必须双向匹配，即隐藏此处评论2：
     - 评论1：`AAA王哥| @吃瓜专家 来看` 
-    - 评论2：`吃瓜专家| 回复 AAA 王哥：哈哈哈`
+    - 评论2：`吃瓜专家| 回复 AAA王哥：哈哈哈`
 
 💬 **添加展开所有回复按钮**
 - 在 `展开更多回复` 旁，添加 `查看所有` 按钮。可自定义按钮文字。
@@ -40,7 +40,7 @@ Helping you read more efficiently and save time
     ↪️ **Hide replies to @-mentions**
     - Hide subsequent replies from users who were previously @-mentioned. This requires a two-direction match. For example, hide Comment 2 here:
     - Comment 1: `AAA王哥| @吃瓜专家 来看`
-    - Comment 2: `吃瓜专家| 回复 AAA 王哥：哈哈哈`
+    - Comment 2: `吃瓜专家| 回复 AAA王哥：哈哈哈`
 
 💬 **Add a button to expand all replies**
 
