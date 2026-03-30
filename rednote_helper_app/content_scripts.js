@@ -17,11 +17,10 @@ function observeShowMore(observer) {
   for (const node of showMoreNodes) {
     // .list-container with .show-more
     const listCont = node.parentElement?.querySelector('.list-container');
-    observer.observe(
-      /** @type {Element} */
-      (listCont), {
-      childList: true
-    });
+    if (listCont === null || listCont === undefined) {
+      continue;
+    }
+    observer.observe(listCont, { childList: true });
   }
 }
 
@@ -106,21 +105,19 @@ function injectedScript() {
   });
   observeShowMore(observerSM);
 
-  const observerPC = debouncedObserver(() => {
-    // load all things again
-    ops();
-
-    observerSM.disconnect();
-    observeShowMore(observerSM);
-  });
   // .list-container of all parent comments
   const parentCommentContainer = document.querySelector('.list-container');
-  observerPC.observe(
-    /** @type {Element} */
-    (parentCommentContainer), {
-    childList: true
-  });
+  if (parentCommentContainer !== null) {
+    const observerPC = debouncedObserver(() => {
+      // load all things again
+      ops();
 
+      observerSM.disconnect();
+      observeShowMore(observerSM);
+    });
+
+    observerPC.observe(parentCommentContainer, { childList: true });
+  }
 };
 
 function recoverAll() {
@@ -218,14 +215,13 @@ function isCommentReady() {
 
 function addMODetectingFeedAndNote() {
   const titleNode = document.querySelector('title');
+  if (titleNode === null) {
+    return;
+  }
 
   const debounced = asyncDebounce(async () => await injectWhenReady(), 250);
   const observer = new MutationObserver(debounced);
-  observer.observe(
-    /** @type {HTMLTitleElement}*/
-    (titleNode), {
-    childList: true
-  });
+  observer.observe(titleNode, { childList: true });
 }
 
 async function injectWhenReady() {
