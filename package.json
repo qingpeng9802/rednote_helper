@@ -23,6 +23,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/chrome": "^0.1.38",
     "@typescript-eslint/parser": "^8.58.0",
     "eslint": "^10.1.0",
     "typescript": "^6.0.2",

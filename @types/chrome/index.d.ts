@@ -692,8 +692,15 @@ declare namespace chrome {
 
         /** @deprecated Bookmark write operations are no longer limited by Chrome. */
         export const MAX_WRITE_OPERATIONS_PER_HOUR: 1000000;
+
         /** @deprecated Bookmark write operations are no longer limited by Chrome. */
         export const MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: 1000000;
+
+        /**
+         * The `id` associated with the root level node.
+         * @since Chrome 145
+         */
+        export const ROOT_NODE_ID = "0";
 
         /**
          * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
@@ -4067,14 +4074,17 @@ declare namespace chrome {
             id: string;
             /**
              * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are hardware-backed.
-             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 134+) with `modulusLength` up to 2048 and ECDSA with `namedCurve` P-256. Each RSASSA-PKCS1-V1_5 and ECDSA key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 134 and can be used by extensions allowlisted through that same policy to unwrap other keys.
+             *
+             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048 and ECDSA with `namedCurve` P-256. Each key can be used for signing data at most once, unless the extension is allowlisted by the KeyPermissions policy, in which case the key can be used indefinitely.
+             *
              * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              */
             subtleCrypto: SubtleCrypto;
             /**
-             * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed.
-             * Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
-             * Only non-extractable keys can be generated. The supported key types are RSASSA-PKCS1-V1_5 and RSA-OAEP (on Chrome versions 134+) with `modulusLength` up to 2048. Each RSASSA-PKCS1-V1_5 key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely. RSA-OAEP keys are supported since Chrome version 134 and can be used by extensions allowlisted through that same policy to unwrap other keys.
+             * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed. Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
+             *
+             * Only non-extractable keys can be generated. The only supported key type is RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048. up to 2048. Each key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely.
+             *
              * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              * @since Chrome 97
              */
@@ -9683,7 +9693,7 @@ declare namespace chrome {
         /** Sent after onSuspend to indicate that the app won't be unloaded after all. */
         export const onSuspendCanceled: events.Event<() => void>;
 
-        /** Fired when a message is sent from either an extension process (by {@link runtime.sendMessage}) or a content script (by {@link tabs.sendMessage}). */
+        /** Fired when a message is sent from either {@link runtime.sendMessage} or {@link tabs.sendMessage}. */
         export const onMessage: events.Event<
             (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
         >;
@@ -11048,6 +11058,11 @@ declare namespace chrome {
             /** The session ID used to uniquely identify a tab obtained from the {@link sessions} API. */
             sessionId?: string | undefined;
             /**
+             * The ID of the Split View that the tab belongs to.
+             * @since Chrome 140
+             */
+            splitViewId?: number | undefined;
+            /**
              * The ID of the group that the tab belongs to.
              * @since Chrome 88
              */
@@ -11117,6 +11132,12 @@ declare namespace chrome {
          * @since Chrome 92
          */
         export const MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND = 2;
+
+        /**
+         * An ID that represents the absence of a split tab.
+         * @since Chrome 140
+         */
+        export const SPLIT_VIEW_ID_NONE: -1;
 
         /**
          * An ID that represents the absence of a browser tab.
@@ -11561,7 +11582,7 @@ declare namespace chrome {
         export function duplicate(tabId: number, callback: (tab?: Tab) => void): void;
 
         /**
-         * Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back. The {@link runtime.onMessage} event is fired in each content script running in the specified tab for the current extension.
+         * Sends a single message to the content script(s) in the specified tab. The {@link runtime.onMessage} event is fired in each content script running in the specified tab for the current extension.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99.
          */
@@ -14083,6 +14104,30 @@ declare namespace chrome {
             responseHeaders?: HeaderInfo[];
         }
 
+        /** @since Chrome 145 */
+        export enum RuleConditionKeys {
+            URL_FILTER = "urlFilter",
+            REGEX_FILTER = "regexFilter",
+            IS_URL_FILTER_CASE_SENSITIVE = "isUrlFilterCaseSensitive",
+            INITIATOR_DOMAINS = "initiatorDomains",
+            EXCLUDED_INITIATOR_DOMAINS = "excludedInitiatorDomains",
+            REQUEST_DOMAINS = "requestDomains",
+            EXCLUDED_REQUEST_DOMAINS = "excludedRequestDomains",
+            TOP_DOMAINS = "topDomains",
+            EXCLUDED_TOP_DOMAINS = "excludedTopDomains",
+            DOMAINS = "domains",
+            EXCLUDED_DOMAINS = "excludedDomains",
+            RESOURCE_TYPES = "resourceTypes",
+            EXCLUDED_RESOURCE_TYPES = "excludedResourceTypes",
+            REQUEST_METHODS = "requestMethods",
+            EXCLUDED_REQUEST_METHODS = "excludedRequestMethods",
+            DOMAIN_TYPE = "domainType",
+            TAB_IDS = "tabIds",
+            EXCLUDED_TAB_IDS = "excludedTabIds",
+            RESPONSE_HEADERS = "responseHeaders",
+            EXCLUDED_RESPONSE_HEADERS = "excludedResponseHeaders",
+        }
+
         export interface MatchedRule {
             /** A matching rule's ID. */
             ruleId: number;
@@ -14303,6 +14348,11 @@ declare namespace chrome {
             responseHeaders?: { [name: string]: unknown };
             /** The ID of the tab in which the hypothetical request takes place. Does not need to correspond to a real tab ID. Default is -1, meaning that the request isn't related to a tab. */
             tabId?: number;
+            /**
+             * The associated top-level frame URL (if any) for the request.
+             * @since Chrome 145
+             */
+            topUrl?: string;
             /** The resource type of the hypothetical request. */
             type: `${ResourceType}`;
             /** The URL of the hypothetical request. */
