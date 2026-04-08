@@ -15,7 +15,7 @@
   "type": "commonjs",
   "main": "rednote_helper_app/popup/popup.js",
   "scripts": {
-    "lint": "eslint rednote_helper_app",
+    "lint": "eslint rednote_helper_app --cache --concurrency=auto",
     "tscc": "tsc -p jsconfig.json --noEmit",
     "tsccd": "tsc -p jsconfig.json --declaration --declarationMap --emitDeclarationOnly --outDir ./dist/types",
     "zipapp": "zip -rv9 rednote_helper_app.zip ./rednote_helper_app/"
