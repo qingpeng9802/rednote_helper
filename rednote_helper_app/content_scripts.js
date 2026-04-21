@@ -82,16 +82,17 @@ function rawOps(rangeNode = undefined) {
 function ops(rangeNode) {
   const isDebug = false;
 
-  if (!isDebug) {
+  if (isDebug) {
     rawOps(rangeNode);
+  } else {
+    try {
+      rawOps(rangeNode);
+    } catch (e) {
+      console.log(/** @type {Error} */(e).message);
+      console.log(/** @type {Error} */(e).stack);
+    }
   }
 
-  try {
-    rawOps(rangeNode);
-  } catch (e) {
-    console.log(/** @type {Error} */(e).message);
-    console.log(/** @type {Error} */(e).stack);
-  }
 }
 
 function injectedScript() {
